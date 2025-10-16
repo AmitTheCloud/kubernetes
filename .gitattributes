@@ -1,0 +1,2 @@
+istio/istio-1.28.0/bin/istioctl filter=lfs diff=lfs merge=lfs -text
+projects/minikube-linux-amd64 filter=lfs diff=lfs merge=lfs -text

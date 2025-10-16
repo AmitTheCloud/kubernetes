@@ -1,0 +1,44 @@
+After that run following command to create cluster:
+kind create cluster --config=file_name.yml
+
+To check the list of clusters
+kind get clusters
+
+To get Cluster-Info (Cluster Name kind-demo-cluster)
+kubectl cluster-info --context kind-demo-cluster
+
+To collect detailed debugging information about your entire Kubernetes cluster — including configuration, API objects, and runtime states
+kubectl cluster-info dump | more
+Save output to a file: kubectl cluster-info dump > cluster_dump.json
+Dump info only for a specific namespace: kubectl cluster-info dump --namespace kube-system
+Dump to a directory: kubectl cluster-info dump --output-directory=/tmp/cluster-state
+
+To check Number of nodes available in the cluster
+kubectl get nodes
+
+To check the list of nodes for a specific cluster if you have multiple cluster setup on same machine
+kubectl get nodes --context kind-demo-cluster
+
+To switch perminently to the specific cluster
+kubectl config use-context kind-demo-cluster
+
+To Create namespace
+kubectl create ns nginx
+
+To create the pod (Here I take nginx as a image to run in pod)
+kubectl run nginx --image=nginx
+
+To delete the pod
+kubectl delete pod nginx
+
+To create the pod in the specific namespace
+kubectl run nginx --image=nginx -n nginx
+
+To get the list of pods from the specific namespace (nginx is the namespace)
+kubectl get pods -n nginx
+
+To delete the pod from the namespace
+kubectl delete pod nginx -n nginx
+
+To delete the namespace
+kubectl delete ns nginx
