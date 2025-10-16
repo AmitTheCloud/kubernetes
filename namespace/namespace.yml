@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: nginx
+
+# Command: kubectl apply -f file_name.yml
