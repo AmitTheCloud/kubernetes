@@ -1,0 +1,47 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: atc-cluster
+
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.31.2
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 80
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 443
+        protocol: TCP
+  - role: worker
+    image: kindest/node:v1.31.2
+  - role: worker
+    image: kindest/node:v1.31.2
+  - role: worker
+    image: kindest/node:v1.31.2
+
+# To create a Kind Cluster run the following command:
+# kind create cluster --config=file_name.yml
+#
+# To check the Cluster ru the dollowing command:
+# kind get cluster
+#
+# To get the Cluster info:
+# kubectl cluster-info kind-atc-cluster  --(kind-atc-cluster is a cluster name)
+# 
+# To collect detailed debugging information about your entire Kubernetes cluster — including configuration, API objects, and runtime states
+# kubectl cluster-info dump
+#
+# Save output to a file: kubectl cluster-info dump > cluster_dump.json
+#
+# Dump info only for a specific namespace: kubectl cluster-info dump --namespace kube-system
+#
+# Dump to a directory: kubectl cluster-info dump --output-directory=/tmp/cluster-state
+#
+# To check Number of nodes available in the cluster
+# kubectl get nodes
+#
+# To check the list of nodes for a specific cluster if you have multiple cluster setup on same machine
+# kubectl get nodes --context kind-demo-cluster
+#
+# To switch perminently to the specific cluster
+# kubectl config use-context kind-demo-cluster
