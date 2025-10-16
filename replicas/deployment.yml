@@ -1,0 +1,24 @@
+apiVersion: apps/v1           # ✅ Correct API version for Deployment (not just v1)
+kind: Deployment              # Defines this resource as a Deployment
+metadata:
+  name: nginx-deployment      # The name of the Deployment
+  namespace: nginx            # The namespace where the Deployment will be created
+spec:
+  replicas: 2                 # Number of Pod replicas to run
+  selector:                   # Defines how Deployment finds which Pods to manage
+    matchLabels:
+      app: nginx              # Must match the labels in the Pod template below
+  template:                   # Describes the Pods that will be created
+    metadata:
+      name: nginx-dep-pod
+      labels:                 # Labels for the Pods (must match selector above)
+        app: nginx
+    spec:
+      containers:
+        - name: nginx         # Container name (used inside Pod)
+          image: nginx:latest # Docker image for the container
+          ports:
+            - containerPort: 80 # Port exposed by the container
+
+# Scale replicas using command
+# kubect scale deployment/nginx-deployment -n nginx --replicas=5
