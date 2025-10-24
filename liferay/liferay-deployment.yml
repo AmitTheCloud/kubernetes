@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liferay
+  namespace: liferay
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liferay
+  template:
+    metadata:
+      labels:
+        app: liferay
+    spec:
+      initContainers:
+        - name: wait-for-mariadb
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z mariadb 3306; do
+                echo "Waiting for MariaDB..."
+                sleep 5
+              done
+      containers:
+        - name: liferay
+          image: liferay/portal:7.4.3.36-ga36
+          env:
+            - name: LIFERAY_JDBC_DEFAULT_DRIVER_CLASS_NAME
+              value: org.mariadb.jdbc.Driver
+            - name: LIFERAY_JDBC_DEFAULT_URL
+              value: jdbc:mysql://mariadb.liferay.svc.cluster.local:3306/liferay?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
+            - name: LIFERAY_JDBC_DEFAULT_USERNAME
+              value: liferay
+            - name: LIFERAY_JDBC_DEFAULT_PASSWORD
+              value: liferay
+          ports:
+            - containerPort: 8080
+      volumes:
+        - name: liferay-data
+          persistentVolumeClaim:
+            claimName: liferay-pvc
