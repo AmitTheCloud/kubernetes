@@ -18,4 +18,11 @@ spec:
           image: asolanki1811/notes-app-k8s
           ports:
             - containerPort: 8000
+          volumeMounts:
+            - name: notes-storage
+              mountPath: /app/media
+      volumes:
+        - name: notes-storage
+          persistentVolumeClaim:
+            claimName: notes-pvc
 
