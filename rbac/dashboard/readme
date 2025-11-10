@@ -1,0 +1,9 @@
+# Run following command to setup cluster roles and users
+#
+# https://github.com/LondheShubham153/kubestarter/tree/main/kind-cluster
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+
+
+kubectl proxy --address='0.0.0.0' --port=8001
